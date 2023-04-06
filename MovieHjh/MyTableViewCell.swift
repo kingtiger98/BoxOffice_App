@@ -9,6 +9,9 @@ import UIKit
 
 class MyTableViewCell: UITableViewCell {
 
+    
+    @IBOutlet weak var movieName: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
