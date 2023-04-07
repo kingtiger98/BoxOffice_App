@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var table: UITableView!
         
     // let name = ["영화이름1", "영화이름2", "영화이름3", "영화이름4", "영화이름5"]
-    let movieURL = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=e0d922798fe4b71963bb0052e9c4ad6b&targetDt=20230404"
+    var movieURL = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=e0d922798fe4b71963bb0052e9c4ad6b&targetDt=" // + yyyymmdd
     
     var movieData : MovieData? // decodedData를 저장할 변수 선언
     
@@ -45,9 +45,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         table.delegate = self
         table.dataSource = self
         
+        // 어제 날짜 얻기
+        movieURL += yesterdayDateString()
+        
         // 1단계 : URL만들기
         getData()
     }
+    
+    // 어제 날짜 구하기 함수 => "yyyymmdd"
+    func yesterdayDateString() -> String {
+        // 상수 yesterday에 오늘의 날짜에 -1일을 한 값을 저장!
+        // Date()는 오늘의 날짜를 가져옴 => 2023-04-06 07:16:47 +0000
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let dateString = dateFormatter.string(from: yesterday)
+        
+        return dateString
+    }
+    
     
     func getData() {
         if let url = URL(string: movieURL){
