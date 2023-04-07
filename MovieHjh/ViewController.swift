@@ -31,11 +31,14 @@ struct DailyBoxOfficeList : Codable { // DailyBoxOfficeList 구조체 생성, Co
 }
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet weak var table: UITableView!
         
-    let name = ["영화이름1", "영화이름2", "영화이름3", "영화이름4", "영화이름5"]
+    // let name = ["영화이름1", "영화이름2", "영화이름3", "영화이름4", "영화이름5"]
     let movieURL = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=e0d922798fe4b71963bb0052e9c4ad6b&targetDt=20230404"
+    
+    var movieData : MovieData? // decodedData를 저장할 변수 선언
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,29 +60,49 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     print(error!)
                     return
                 }
-                if let JSONdata = data {
-                    print(JSONdata, response!)
+                if let JSONdata = data { // data가 옵셔널형임
+                    // print(JSONdata, response!)
                     // print(JSONdata)
-                    let dataString = String(data: JSONdata, encoding: .utf8)
-                    print(dataString!)
+                    // let dataString = String(data: JSONdata, encoding: .utf8)
+                    // print(dataString!) // 데이터를 스트링으로 찍어보기
+                    
+                    let decoder = JSONDecoder() // JSONDecoder() 인스턴스 생성
+                    // error handling
+                    do{
+                        let decodedData = try decoder.decode(MovieData.self, from: JSONdata)
+                        // 구조체안의 구조체를 타고 들어가 1등한 영화 이름과 당일관객수를 찍어보자
+                        // print(decodedData.boxOfficeResult.dailyBoxOfficeList[0].movieNm)
+                        // print(decodedData.boxOfficeResult.dailyBoxOfficeList[0].audiCnt)
+                        
+                        // movieData에 decodedData 넣어줌
+                        self.movieData = decodedData
+                        DispatchQueue.main.async { // 메인 스레드(main)에서 비동기처리(async) 되도록 DispatchQueue 객체로 수정
+                            self.table.reloadData() // 테이블뷰를 다시 로드
+                        }
+                    }catch{
+                        print(error)
+                    }
                 }
             }
+            
             // 4단계 :  task 시작하기 ( task.resume() )
             task.resume()
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return name.count
+        return 10
         
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! MyTableViewCell
-        cell.movieName.text = name[indexPath.row]
         
+        cell.movieName.text = movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].movieNm
         return cell
     }
-    
-
 }
