@@ -7,13 +7,35 @@
 
 import UIKit
 
+// 파싱을 위한 MovieData, BoxOfficeResult, DailyBoxOfficeList형 구조체 만들기
+// 구조체의 이름은 자유롭게 설정해도 상관없음
+// 주의!! : 지금 만드는 구조체들은 Codable 프로토콜 준수해야함 인코딩_디코딩 기능 지원
+// 주의!! : 구조체들의 프로퍼티명들은 받아온 JSON 데이터와 일치해야함
+struct MovieData : Codable { // MovieData 구조체 생성, Codable 채택
+    let boxOfficeResult : BoxOfficeResult // JSON데이터의 동일한 이름으로 boxOfficeResult 프로퍼티 생성
+}
+
+struct BoxOfficeResult : Codable { // BoxOfficeResult 구조체 생성, Codable 채택
+    // JSON데이터에서 boxOfficeResult의 키 값이 "boxofficeType", "showRange", "dailyBoxOfficeList"로 세 개가 있지만
+    // 필요한 "dailyBoxOfficeList"만 프로퍼티로 생성
+    let dailyBoxOfficeList : [DailyBoxOfficeList] // JSON데이터의 동일한 이름으로 dailyBoxOfficeList 프로퍼티 생성
+    // JSON데이터에서 dailyBoxOfficeList가 배열이므로 자료형에 []로 감쌈
+    
+}
+
+struct DailyBoxOfficeList : Codable { // DailyBoxOfficeList 구조체 생성, Codable 채택
+    // JSON데이터의 dailyBoxOfficeList의 배열에서 원하는 데이터를 골라 프로퍼티로 만들어주면 됨!
+    // 물론 배열의 이름과 동일하게 프로퍼티를 생성해야한다.
+    let movieNm : String // 영화이름
+    let audiCnt : String // 누적관객수
+}
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var table: UITableView!
-    
-    let movieURL = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=e0d922798fe4b71963bb0052e9c4ad6b&targetDt=20230404"
-    
+        
     let name = ["영화이름1", "영화이름2", "영화이름3", "영화이름4", "영화이름5"]
+    let movieURL = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=e0d922798fe4b71963bb0052e9c4ad6b&targetDt=20230404"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +59,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 if let JSONdata = data {
                     print(JSONdata, response!)
+                    // print(JSONdata)
                     let dataString = String(data: JSONdata, encoding: .utf8)
                     print(dataString!)
                 }
