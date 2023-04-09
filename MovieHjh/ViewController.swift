@@ -29,6 +29,7 @@ struct DailyBoxOfficeList : Codable { // DailyBoxOfficeList 구조체 생성, Co
     let movieNm : String // 영화이름
     let audiCnt : String // 당일관객수
     let audiAcc : String // 총관객수
+    let rank : String // 영화순위
 }
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -39,7 +40,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     // let name = ["영화이름1", "영화이름2", "영화이름3", "영화이름4", "영화이름5"]
     var movieURL = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=e0d922798fe4b71963bb0052e9c4ad6b&targetDt=" // + yyyymmdd
-    
     var movieData : MovieData? // decodedData를 저장할 변수 선언
     
     override func viewDidLoad() {
@@ -132,10 +132,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! MyTableViewCell
         
-        cell.movieRank.text = "\(indexPath.row)"
+        cell.movieRank.text = movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].rank
         cell.movieName.text = movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].movieNm
-        cell.audiCntDay.text = movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].audiCnt
-        cell.audiCntTotal.text = movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].audiAcc
+        cell.audiCntDay.text = "당일 관객수 : " + (movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].audiCnt ?? "")
+        cell.audiCntTotal.text = "누적 관객수 : " + (movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].audiAcc ?? "")
         
         return cell
     }
