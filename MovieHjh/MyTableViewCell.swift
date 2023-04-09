@@ -10,7 +10,12 @@ import UIKit
 class MyTableViewCell: UITableViewCell {
 
     
+    @IBOutlet weak var movieRank: UILabel!
     @IBOutlet weak var movieName: UILabel!
+    @IBOutlet weak var audiCntDay: UILabel!
+    @IBOutlet weak var audiCntTotal: UILabel!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

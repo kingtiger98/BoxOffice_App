@@ -27,32 +27,36 @@ struct DailyBoxOfficeList : Codable { // DailyBoxOfficeList 구조체 생성, Co
     // JSON데이터의 dailyBoxOfficeList의 배열에서 원하는 데이터를 골라 프로퍼티로 만들어주면 됨!
     // 물론 배열의 이름과 동일하게 프로퍼티를 생성해야한다.
     let movieNm : String // 영화이름
-    let audiCnt : String // 누적관객수
+    let audiCnt : String // 당일관객수
+    let audiAcc : String // 총관객수
 }
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var table: UITableView!
+    @IBOutlet weak var yesterdayTop: UILabel!
+    
         
     // let name = ["영화이름1", "영화이름2", "영화이름3", "영화이름4", "영화이름5"]
     var movieURL = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=e0d922798fe4b71963bb0052e9c4ad6b&targetDt=" // + yyyymmdd
     
     var movieData : MovieData? // decodedData를 저장할 변수 선언
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         table.delegate = self
         table.dataSource = self
         
-        // 어제 날짜 얻기
+        // 어제 날짜 얻기 (데이터 리셋용)
         movieURL += yesterdayDateString()
+        // 어제 날짜 얻기 (기준일 라벨용)
+        yesterdayTop.text = yesterdaytop()
         
         // 1단계 : URL만들기
         getData()
     }
     
-    // 어제 날짜 구하기 함수 => "yyyymmdd"
+    // 어제 날짜 구하기 함수 movieURL용 => "yyyymmdd"
     func yesterdayDateString() -> String {
         // 상수 yesterday에 오늘의 날짜에 -1일을 한 값을 저장!
         // Date()는 오늘의 날짜를 가져옴 => 2023-04-06 07:16:47 +0000
@@ -64,6 +68,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return dateString
     }
     
+    // 어제 날짜 구하기 함수 yesterdayTop용 => "기준일 : yyyy년 MM월 dd일"
+    func yesterdaytop() -> String {
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "기준일 : yyyy년 MM월 dd일"
+        
+        let dateString = dateFormatter.string(from: yesterday)
+
+        return dateString
+    }
     
     func getData() {
         if let url = URL(string: movieURL){
@@ -118,7 +132,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! MyTableViewCell
         
+        cell.movieRank.text = "\(indexPath.row)"
         cell.movieName.text = movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].movieNm
+        cell.audiCntDay.text = movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].audiCnt
+        cell.audiCntTotal.text = movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].audiAcc
+        
         return cell
     }
 }
