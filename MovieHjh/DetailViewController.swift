@@ -9,6 +9,16 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    @IBAction func searchMV(_ sender: UIButton) {
+        guard let url = URL(string: "https://m.naver.com"), UIApplication.shared.canOpenURL(url) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    @IBAction func watchMV(_ sender: UIButton) {
+        guard let url = URL(string: "https://m.youtube.com"), UIApplication.shared.canOpenURL(url) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
     @IBOutlet weak var receiveName: UILabel!
     @IBOutlet weak var receiveRank: UILabel!
     @IBOutlet weak var receiveDay: UILabel!
@@ -29,7 +39,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // 받아온 데이터를 강제 언래핑
-        receiveName.text = receivedName!
+        receiveName.text = "🎬\(receivedName!)"
         receiveRank.text = "전일 박스오피스 순위 :  \(receivedRank!)위"
         receiveDay.text = "영화 개봉일 :  \(receivedDay!)"
         receiveAudi.text = "전일 관객수 :  \(stringSeperator(receivedAudi!))명"
@@ -48,4 +58,7 @@ class DetailViewController: UIViewController {
             }
             return num
     }
+    
+    
+    
 }
