@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C82E70C29E3DA6A00EE1CD8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C82E70B29E3DA6A00EE1CD8 /* DetailViewController.swift */; };
 		4C873A4E29DD5FAD0075CD82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C873A4D29DD5FAD0075CD82 /* AppDelegate.swift */; };
 		4C873A5029DD5FAD0075CD82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C873A4F29DD5FAD0075CD82 /* SceneDelegate.swift */; };
 		4C873A5229DD5FAD0075CD82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C873A5129DD5FAD0075CD82 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C82E70B29E3DA6A00EE1CD8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		4C873A4A29DD5FAD0075CD82 /* MovieHjh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieHjh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C873A4D29DD5FAD0075CD82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C873A4F29DD5FAD0075CD82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				4C873A4D29DD5FAD0075CD82 /* AppDelegate.swift */,
 				4C873A4F29DD5FAD0075CD82 /* SceneDelegate.swift */,
 				4C873A5129DD5FAD0075CD82 /* ViewController.swift */,
+				4C82E70B29E3DA6A00EE1CD8 /* DetailViewController.swift */,
 				4C873A5329DD5FAD0075CD82 /* Main.storyboard */,
 				4C873A6129DEA02B0075CD82 /* MyTableViewCell.swift */,
 				4C873A5629DD5FAD0075CD82 /* Assets.xcassets */,
@@ -143,6 +146,7 @@
 			files = (
 				4C873A5229DD5FAD0075CD82 /* ViewController.swift in Sources */,
 				4C873A6229DEA02B0075CD82 /* MyTableViewCell.swift in Sources */,
+				4C82E70C29E3DA6A00EE1CD8 /* DetailViewController.swift in Sources */,
 				4C873A4E29DD5FAD0075CD82 /* AppDelegate.swift in Sources */,
 				4C873A5029DD5FAD0075CD82 /* SceneDelegate.swift in Sources */,
 			);

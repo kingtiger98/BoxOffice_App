@@ -139,4 +139,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        performSegue(withIdentifier: "showDetail", sender: movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].movieNm)
+//
+//
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            guard let sendVC = segue.destination as? DetailViewController else {
+                return
+            }
+            guard let selectedRow = self.table.indexPathForSelectedRow?.row else {
+                return
+            }
+            sendVC.receivedName = movieData?.boxOfficeResult.dailyBoxOfficeList[selectedRow].movieNm
+            
+        }
+    }
 }

@@ -102,6 +102,7 @@
                                             <outlet property="audiCntTotal" destination="k1V-4o-PbW" id="sGd-Ct-pO9"/>
                                             <outlet property="movieName" destination="0CQ-an-9Cm" id="7h1-8X-zjo"/>
                                             <outlet property="movieRank" destination="Upe-tB-xip" id="fFt-hU-aBw"/>
+                                            <segue destination="Fvy-wQ-mFd" kind="show" identifier="showDetail" id="Cwk-s5-OJL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -130,6 +131,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-663.35877862595419" y="-201.40845070422537"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="XLt-n8-w4Z">
+            <objects>
+                <viewController id="Fvy-wQ-mFd" customClass="DetailViewController" customModule="MovieHjh" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZhI-IX-QMP">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="영화 이름" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ICP-VZ-FJd">
+                                <rect key="frame" x="16" y="82" width="361" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FDo-vl-1a7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fpV-ot-ob8"/>
+                    <connections>
+                        <outlet property="receiveName" destination="ICP-VZ-FJd" id="HSX-Os-Pks"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tYM-gb-W3G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="159.54198473282443" y="-201.40845070422537"/>
         </scene>
     </scenes>
     <resources>
