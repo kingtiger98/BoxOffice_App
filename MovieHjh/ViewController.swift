@@ -30,6 +30,9 @@ struct DailyBoxOfficeList : Codable { // DailyBoxOfficeList 구조체 생성, Co
     let audiCnt : String // 당일관객수
     let audiAcc : String // 총관객수
     let rank : String // 영화순위
+    let openDt : String // 영화개봉일
+    let salesAmt: String // 당일매출액
+    let salesAcc: String // 총매출액
 }
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -131,31 +134,42 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! MyTableViewCell
-        
         cell.movieRank.text = movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].rank
         cell.movieName.text = movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].movieNm
-        cell.audiCntDay.text = "당일 관객수 : " + (movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].audiCnt ?? "")
-        cell.audiCntTotal.text = "누적 관객수 : " + (movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].audiAcc ?? "")
-        
+        cell.audiCntDay.text = "당일 관객수 : " + stringSeperator(movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].audiCnt ?? "")
+        cell.audiCntTotal.text = "누적 관객수 : " + stringSeperator(movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].audiAcc ?? "")
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        performSegue(withIdentifier: "showDetail", sender: movieData?.boxOfficeResult.dailyBoxOfficeList[indexPath.row].movieNm)
-//
-//
-//    }
+    func stringSeperator(_ num: String) -> String{
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        if let number = Int(num) {
+                return formatter.string(from: NSNumber(value: number)) ?? ""
+            }
+            return num
+    }
     
+    // 데이터 전달
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // if문으로 segue이름 확인
         if segue.identifier == "showDetail" {
-            guard let sendVC = segue.destination as? DetailViewController else {
+            // nextVC에 segue의 종착지 뷰인 DetailViewController를 대입
+            guard let nextVC = segue.destination as? DetailViewController else {
                 return
             }
+            // 선택된 행의 인덱스 번호를 selectedRow에 저장
             guard let selectedRow = self.table.indexPathForSelectedRow?.row else {
                 return
             }
-            sendVC.receivedName = movieData?.boxOfficeResult.dailyBoxOfficeList[selectedRow].movieNm
-            
+            // 종착지의 receivedName 변수에 데이터를 대입!
+            nextVC.receivedName = movieData?.boxOfficeResult.dailyBoxOfficeList[selectedRow].movieNm
+            nextVC.receivedRank = movieData?.boxOfficeResult.dailyBoxOfficeList[selectedRow].rank
+            nextVC.receivedDay = movieData?.boxOfficeResult.dailyBoxOfficeList[selectedRow].openDt
+            nextVC.receivedAudi = movieData?.boxOfficeResult.dailyBoxOfficeList[selectedRow].audiCnt
+            nextVC.receivedAudiTotal = movieData?.boxOfficeResult.dailyBoxOfficeList[selectedRow].audiAcc
+            nextVC.receivedMony = movieData?.boxOfficeResult.dailyBoxOfficeList[selectedRow].salesAmt
+            nextVC.receivedMonyTotal = movieData?.boxOfficeResult.dailyBoxOfficeList[selectedRow].salesAcc
         }
     }
 }
