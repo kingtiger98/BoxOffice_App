@@ -43,6 +43,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     // let name = ["영화이름1", "영화이름2", "영화이름3", "영화이름4", "영화이름5"]
     var movieURL = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=e0d922798fe4b71963bb0052e9c4ad6b&targetDt=" // + yyyymmdd
+    
     var movieData : MovieData? // decodedData를 저장할 변수 선언
     
     override func viewDidLoad() {
