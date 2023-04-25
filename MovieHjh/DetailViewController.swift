@@ -40,12 +40,12 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // 받아온 데이터를 강제 언래핑
         receiveName.text = "🎬\(receivedName!)"
-        receiveRank.text = "전일 박스오피스 순위 :  \(receivedRank!)위"
-        receiveDay.text = "영화 개봉일 :  \(receivedDay!)"
-        receiveAudi.text = "전일 관객수 :  \(stringSeperator(receivedAudi!))명"
-        receiveAudiTotal.text = "누적 관객수 :  \(stringSeperator(receivedAudiTotal!))명"
-        receiveMony.text = "전일 매출액 :  \(stringSeperator(receivedMony!))원"
-        receiveMonyTotal.text = "누적 매출액 :  \(stringSeperator(receivedMonyTotal!))원"
+        receiveRank.text = " 전일 박스오피스 순위 :  \(receivedRank!)위"
+        receiveDay.text = " 영화 개봉일 :  \(receivedDay!)"
+        receiveAudi.text = " 전일 관객수 :  \(stringSeperator(receivedAudi!))명"
+        receiveAudiTotal.text = " 누적 관객수 :  \(stringSeperator(receivedAudiTotal!))명"
+        receiveMony.text = " 전일 매출액 :  \(stringSeperator(receivedMony!))원"
+        receiveMonyTotal.text = " 누적 매출액 :  \(stringSeperator(receivedMonyTotal!))원"
         
     }
     
